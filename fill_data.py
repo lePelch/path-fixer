@@ -6,9 +6,18 @@ from string import ascii_letters
 def main():
     file_name_list = []
     for _ in range(10) : file_name_list.append(generate_random_name())
+
+    # Validate the test_folder exist
+    test_folder_name = "exemple_data"
+    test_folder = Path(test_folder_name + "/")
+
+    test_folder.parent.mkdir(exist_ok=True)
+
     for file_name in file_name_list:
-        path = "exemple_data/" + file_name
-        with open(path, "a") as file:
+        file_specific = Path(test_folder_name + "/" + file_name)
+        file_specific.parent.mkdir(parents= True, exist_ok=True)
+
+        with file_specific.open( "a") as file:
             file.write(generate_random_str(1_000))
 
 def generate_random_str(length=100) -> str:
