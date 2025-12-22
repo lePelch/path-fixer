@@ -10,4 +10,4 @@ wheels/
 .venv
 
 exemple_data/
-processed_folder/
+processed_directory/
