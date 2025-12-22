@@ -9,16 +9,27 @@ def main():
 
     # Validate the test_folder exist
     test_folder_name = "exemple_data"
-    test_folder = Path(test_folder_name + "/")
+    base_dir = Path(test_folder_name)
 
-    test_folder.parent.mkdir(exist_ok=True)
-
+    base_dir.parent.mkdir(exist_ok=True)
+    
     for file_name in file_name_list:
-        file_specific = Path(test_folder_name + "/" + file_name)
+        file_specific = base_dir / file_name
         file_specific.parent.mkdir(parents= True, exist_ok=True)
 
         with file_specific.open( "a") as file:
             file.write(generate_random_str(1_000))
+        
+        # Create empty directories (when unzip a windows archive it can create one)
+        directories = file_name.replace("\\", "/").rstrip("/")
+
+        p = Path(directories)
+        
+        dir_path = p if p.suffix == "" else p.parent
+
+        full_dir = base_dir / dir_path
+
+        full_dir.parent.mkdir(exist_ok=True, parents=True)
 
 def generate_random_str(length=100) -> str:
     fake_data = ""
