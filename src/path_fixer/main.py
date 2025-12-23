@@ -43,13 +43,13 @@ def main(
         new_file_name = file.name.replace("\\", "/")
         destination_path = destination_directory / new_file_name
  
-        with file.open( "r") as files:
+        with file.open( "rb") as files:
             file_content = files.read()
 
         print(destination_path)
 
         destination_path.parent.mkdir(parents=True, exist_ok=True)
-        with destination_path.open("w") as files:
+        with destination_path.open("wb") as files:
             files.write(file_content)
 
 if __name__ == "__main__":
