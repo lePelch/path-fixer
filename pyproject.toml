@@ -10,3 +10,6 @@ dependencies = [
 ]
 [project.scripts]
 path-fixer = "path_fixer.main:app"
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
