@@ -1,11 +1,10 @@
 [project]
-name = "path-fixer"
+name = "path_fixer"
 version = "0.1.1"
 description = "Tool for extracting Windows backups to Linux. Fixes paths and generates the directory structure."
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "pathlib>=1.0.1",
     "tqdm>=4.67.1",
     "typer>=0.20.1",
 ]
