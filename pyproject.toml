@@ -1,7 +1,7 @@
 [project]
-name = "unpacker-zip-backup"
-version = "0.1.0"
-description = "Add your description here"
+name = "path-fixer"
+version = "0.1.1"
+description = "Tool for extracting Windows backups to Linux. Fixes paths and generates the directory structure."
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
