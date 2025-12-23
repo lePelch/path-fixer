@@ -11,3 +11,5 @@ wheels/
 
 exemple_data/
 processed_directory/
+path-fixer/
+path-fixer-git*
