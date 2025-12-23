@@ -1,7 +1,7 @@
 # Maintainer: Cédrick Pelchat
 pkgname=path-fixer-git
 _pkgname=path-fixer
-pkgver=c5e94a1
+pkgver=b0c97ad
 pkgrel=1
 pkgdesc="Tool for extracting Windows backups to Linux (fixes paths and recreates directory structure)"
 arch=("any")

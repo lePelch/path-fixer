@@ -1,6 +1,7 @@
 from pathlib import Path
 from tqdm import tqdm
 import typer
+import shutil
 
 app = typer.Typer(
     help="Tool for extracting Windows backups to Linux.\n"
@@ -30,27 +31,17 @@ def main(
     ),
 ):
 
-    destination_directory.parent.mkdir(parents=True, exist_ok=True)
- 
-    all_element = list(base_directory_to_unpack.glob("**"))
-    all_file = []
-    for element in all_element:
+    destination_directory.mkdir(parents=True, exist_ok=True)
 
-        if not element.is_dir():
-            all_file.append(element)
+    files_iter = (p for p in base_directory_to_unpack.rglob("*") if p.is_file())
 
-    for file in tqdm(all_file):
-        new_file_name = file.name.replace("\\", "/")
-        destination_path = destination_directory / new_file_name
- 
-        with file.open( "rb") as files:
-            file_content = files.read()
+    for src in tqdm(files_iter, desc="Fixing paths", unit="file"):
+        rel = src.relative_to(base_directory_to_unpack)
+        fixed = Path(str(rel).replace("\\", "/"))
+        dst = destination_directory / fixed
 
-        print(destination_path)
-
-        destination_path.parent.mkdir(parents=True, exist_ok=True)
-        with destination_path.open("wb") as files:
-            files.write(file_content)
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(src, dst)
 
 if __name__ == "__main__":
     app()
