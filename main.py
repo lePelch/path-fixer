@@ -1,16 +1,37 @@
 from pathlib import Path
 from tqdm import tqdm
+import typer
 
-def main():
-    print("Starting unpacking")
-    source_directory_name = "exemple_data"
-    destination_directory_name = "processed_directory"
+app = typer.Typer(
+    help="Tool for extracting Windows backups to Linux.\n"
+         "Fixes paths and generates the directory structure."
+)
 
-    base_directory_to_unpack = Path(source_directory_name)
-    destination_directory = Path(destination_directory_name)
+@app.command()
+def main(
+    base_directory_to_unpack: Path = typer.Argument(
+        ...,
+        help="Directory containing files incorrectly formatted using Windows paths.",
+        exists=True,
+        file_okay=False,
+        dir_okay=True,
+        readable=True,
+    ),
+    destination_directory: Path = typer.Argument(
+        ...,
+        help=(
+            "Name of the directory where the files will be placed "
+            "with a correct directory structure."
+        ),
+        exists=False,
+        file_okay=False,
+        dir_okay=True,
+        readable=True,
+    ),
+):
 
     destination_directory.parent.mkdir(parents=True, exist_ok=True)
-    
+ 
     all_element = list(base_directory_to_unpack.glob("**"))
     all_file = []
     for element in all_element:
@@ -21,10 +42,10 @@ def main():
     for file in tqdm(all_file):
         new_file_name = file.name.replace("\\", "/")
         destination_path = destination_directory / new_file_name
-        
+ 
         with file.open( "r") as files:
             file_content = files.read()
-        
+
         print(destination_path)
 
         destination_path.parent.mkdir(parents=True, exist_ok=True)
@@ -32,4 +53,4 @@ def main():
             files.write(file_content)
 
 if __name__ == "__main__":
-    main()
+    app()
