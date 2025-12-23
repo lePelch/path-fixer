@@ -1,5 +1,5 @@
 [project]
-name = "path_fixer"
+name = "path-fixer"
 version = "0.1.1"
 description = "Tool for extracting Windows backups to Linux. Fixes paths and generates the directory structure."
 readme = "README.md"
@@ -8,3 +8,5 @@ dependencies = [
     "tqdm>=4.67.1",
     "typer>=0.20.1",
 ]
+[project.scripts]
+path-fixer = "path_fixer.main:app"
